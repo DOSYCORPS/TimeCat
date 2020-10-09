@@ -35,6 +35,7 @@ interface RecordOptions {
     write: boolean // write data to indexedDB, default is true
     audio: boolean // if your want record audio
     plugins: RecorderPlugin[] // extend plugins here
+    font: boolean // record font, default is false
 }
 
 // default use IndexedDB to save records
@@ -97,6 +98,7 @@ interface ReplayOptions {
     // receive data in live mode, see examples/mirror
     receiver: ((data: RecordData) => void) => void
     autoplay: boolean // autoplay when data loaded
+    heatPoints: boolean // show heatPoints in progress bar, default is false
 }
 
 const player = new Player(Partial<ReplayOptions>)

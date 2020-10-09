@@ -1,11 +1,16 @@
-import { WatcherOptions, RecordEvent, RecordData, RecordType } from '@timecat/share'
+import { WatcherOptions, RecordEvent, RecordData, RecordType, ValueOf } from '@timecat/share'
 import { debounce, throttle, getRadix64TimeStr, nodeStore } from '@timecat/utils'
+import { watchers } from './watchers'
+import { RecordAudio } from './audio'
+import { Snapshot } from './snapshot'
+import { RecordOptions } from './recorder'
 
 export abstract class Watcher<T extends RecordData> {
     relatedId: string
     context: Window
-    emit: RecordEvent<RecordData>
-    options: WatcherOptions<T>
+    private emit: RecordEvent<RecordData>
+    options: WatcherOptions<T, Map<string, InstanceType<ValueOf<typeof watchers>> | RecordAudio | Snapshot>>
+    recordOptions: RecordOptions = window.G_RECORD_OPTIONS
 
     constructor(options: WatcherOptions<T>) {
         const { emit, context, relatedId } = options
